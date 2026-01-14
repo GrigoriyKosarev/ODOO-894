@@ -1,27 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Inherit the MRP Production Schedule form view -->
-    <record id="mrp_production_schedule_view_form_inherit" model="ir.ui.view">
-        <field name="name">mrp.production.schedule.form.inherit</field>
-        <field name="model">mrp.production.schedule</field>
-        <field name="inherit_id" ref="mrp_mps.mrp_production_schedule_view_form"/>
-        <field name="arch" type="xml">
-            <!-- Add Product Demand button to header -->
-            <xpath expr="//form/header" position="inside">
-                <button name="action_export_product_demand"
-                        string="Product Demand"
-                        type="object"
-                        class="btn-primary"
-                        groups="mrp.group_mrp_user"/>
-            </xpath>
-
-            <!-- Add fields for file download (hidden) -->
-            <xpath expr="//form/sheet" position="inside">
-                <group invisible="1">
-                    <field name="excel_file" invisible="1"/>
-                    <field name="excel_filename" invisible="1"/>
-                </group>
-            </xpath>
+    <!-- Add Product Demand export action to Action menu -->
+    <record id="action_mrp_production_schedule_export_product_demand" model="ir.actions.server">
+        <field name="name">Export Product Demand</field>
+        <field name="model_id" ref="mrp_mps.model_mrp_production_schedule"/>
+        <field name="binding_model_id" ref="mrp_mps.model_mrp_production_schedule"/>
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    action = records.action_export_product_demand()
         </field>
     </record>
 </odoo>
