@@ -1,6 +1,6 @@
 {
     'name': 'MRP Product Demand Report',
-    'version': '17.0.1.0.0',
+    'version': '16.0.1.0.0',
     'category': 'Manufacturing',
     'summary': 'Export Product Demand data from Production Schedule to Excel',
     'description': """
