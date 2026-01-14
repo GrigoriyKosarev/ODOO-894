@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Inherit MRP Production Schedule form view -->
+    <!-- Server Action for Action menu -->
+    <record id="action_mrp_production_schedule_export_product_demand" model="ir.actions.server">
+        <field name="name">Export Product Demand</field>
+        <field name="model_id" ref="mrp_mps.model_mrp_production_schedule"/>
+        <field name="binding_model_id" ref="mrp_mps.model_mrp_production_schedule"/>
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    action = records.action_export_product_demand()
+        </field>
+    </record>
+
+    <!-- Inherit MRP Production Schedule form view to add button in header -->
     <record id="mrp_production_schedule_view_form_inherit" model="ir.ui.view">
         <field name="name">mrp.production.schedule.form.inherit.product.demand</field>
         <field name="model">mrp.production.schedule</field>
