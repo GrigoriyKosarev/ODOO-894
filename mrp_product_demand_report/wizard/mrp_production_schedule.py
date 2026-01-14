@@ -9,7 +9,7 @@ except ImportError:
     xlsxwriter = None
 
 
-class MrpProductionSchedule(models.TransientModel):
+class MrpProductionSchedule(models.Model):
     _inherit = 'mrp.production.schedule'
 
     excel_file = fields.Binary('Excel File', readonly=True)
