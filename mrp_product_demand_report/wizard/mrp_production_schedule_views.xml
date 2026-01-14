@@ -6,8 +6,8 @@
         <field name="model">mrp.production.schedule</field>
         <field name="inherit_id" ref="mrp_mps.mrp_production_schedule_view_form"/>
         <field name="arch" type="xml">
-            <!-- Add Product Demand button -->
-            <xpath expr="//button[@name='button_replenish']" position="after">
+            <!-- Add Product Demand button to header -->
+            <xpath expr="//form/header" position="inside">
                 <button name="action_export_product_demand"
                         string="Product Demand"
                         type="object"
@@ -16,9 +16,11 @@
             </xpath>
 
             <!-- Add fields for file download (hidden) -->
-            <xpath expr="//field[@name='product_id']" position="after">
-                <field name="excel_file" invisible="1"/>
-                <field name="excel_filename" invisible="1"/>
+            <xpath expr="//form/sheet" position="inside">
+                <group invisible="1">
+                    <field name="excel_file" invisible="1"/>
+                    <field name="excel_filename" invisible="1"/>
+                </group>
             </xpath>
         </field>
     </record>
