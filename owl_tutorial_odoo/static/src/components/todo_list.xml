@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <!-- Приклад 3: TODO List -->
+    <t t-name="owl_tutorial.TodoList">
+        <div class="owl-tutorial-component todo-list">
+            <div class="card">
+                <div class="card-header bg-warning">
+                    <h3>🦉 Приклад 3: TODO List (Масиви, Цикли)</h3>
+                </div>
+                <div class="card-body">
+                    <!-- Статистика -->
+                    <div class="todo-stats alert alert-info">
+                        <div class="row">
+                            <div class="col-3">
+                                <strong>Всього:</strong>
+                                <t t-esc="totalTodos"/>
+                            </div>
+                            <div class="col-3">
+                                <strong>Активних:</strong>
+                                <t t-esc="activeTodos"/>
+                            </div>
+                            <div class="col-3">
+                                <strong>Виконано:</strong>
+                                <t t-esc="completedTodos"/>
+                            </div>
+                            <div class="col-3">
+                                <strong>Прогрес:</strong>
+                                <t t-esc="completionPercentage"/>%
+                            </div>
+                        </div>
+
+                        <!-- Progress bar -->
+                        <div class="progress mt-2" style="height: 20px;">
+                            <div
+                                class="progress-bar bg-success"
+                                role="progressbar"
+                                t-att-style="'width: ' + completionPercentage + '%'">
+                                <t t-esc="completionPercentage"/>%
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Додавання нової справи -->
+                    <div class="input-group mb-3">
+                        <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Що потрібно зробити?..."
+                            t-model="state.newTodoText"
+                            t-on-keydown="onKeydown"
+                        />
+                        <button
+                            class="btn btn-primary"
+                            t-on-click="addTodo"
+                            t-att-disabled="!state.newTodoText.trim()">
+                            ➕ Додати
+                        </button>
+                    </div>
+
+                    <!-- Фільтри -->
+                    <div class="btn-group mb-3" role="group">
+                        <button
+                            class="btn"
+                            t-att-class="state.filter === 'all' ? 'btn-primary' : 'btn-outline-primary'"
+                            t-on-click="() => this.setFilter('all')">
+                            Всі (<t t-esc="totalTodos"/>)
+                        </button>
+                        <button
+                            class="btn"
+                            t-att-class="state.filter === 'active' ? 'btn-primary' : 'btn-outline-primary'"
+                            t-on-click="() => this.setFilter('active')">
+                            Активні (<t t-esc="activeTodos"/>)
+                        </button>
+                        <button
+                            class="btn"
+                            t-att-class="state.filter === 'completed' ? 'btn-primary' : 'btn-outline-primary'"
+                            t-on-click="() => this.setFilter('completed')">
+                            Виконані (<t t-esc="completedTodos"/>)
+                        </button>
+                    </div>
+
+                    <!-- Список справ -->
+                    <ul class="list-group">
+                        <!-- t-foreach - цикл по масиву -->
+                        <!-- t-as - назва змінної в циклі -->
+                        <!-- t-key - унікальний ключ (для оптимізації) -->
+                        <t t-foreach="filteredTodos" t-as="todo" t-key="todo.id">
+                            <li class="list-group-item">
+                                <div class="d-flex align-items-center">
+                                    <!-- Checkbox -->
+                                    <input
+                                        class="form-check-input me-3"
+                                        type="checkbox"
+                                        t-att-checked="todo.done"
+                                        t-on-click="() => this.toggleTodo(todo)"
+                                    />
+
+                                    <!-- Текст -->
+                                    <span
+                                        class="flex-grow-1"
+                                        t-att-style="todo.done ? 'text-decoration: line-through; color: gray;' : ''">
+                                        <t t-esc="todo.text"/>
+                                    </span>
+
+                                    <!-- Кнопка видалення -->
+                                    <button
+                                        class="btn btn-sm btn-danger"
+                                        t-on-click="() => this.deleteTodo(todo.id)">
+                                        🗑️ Видалити
+                                    </button>
+                                </div>
+                            </li>
+                        </t>
+
+                        <!-- Якщо список порожній -->
+                        <t t-if="filteredTodos.length === 0">
+                            <li class="list-group-item text-center text-muted">
+                                <t t-if="state.filter === 'all'">
+                                    Список порожній. Додайте першу справу!
+                                </t>
+                                <t t-else="">
+                                    Немає справ у категорії "<t t-esc="state.filter"/>"
+                                </t>
+                            </li>
+                        </t>
+                    </ul>
+
+                    <!-- Кнопка очищення виконаних -->
+                    <button
+                        class="btn btn-outline-danger mt-3"
+                        t-on-click="clearCompleted"
+                        t-att-disabled="completedTodos === 0">
+                        🗑️ Очистити виконані (<t t-esc="completedTodos"/>)
+                    </button>
+
+                    <!-- Пояснення -->
+                    <div class="alert alert-info mt-4">
+                        <strong>Нові концепції:</strong>
+                        <ul class="mb-0">
+                            <li><code>t-foreach</code> - цикл по масиву</li>
+                            <li><code>t-as</code> - назва змінної в циклі</li>
+                            <li><code>t-key</code> - унікальний ключ для оптимізації</li>
+                            <li><code>t-model</code> - двостороннє зв'язування</li>
+                            <li><code>t-att-disabled</code> - динамічний атрибут disabled</li>
+                            <li><code>t-att-style</code> - динамічні стилі</li>
+                            <li><code>Getters</code> - обчислювані властивості</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

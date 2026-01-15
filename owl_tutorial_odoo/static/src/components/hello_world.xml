@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <!-- Приклад 1: Hello World -->
+    <t t-name="owl_tutorial.HelloWorld">
+        <div class="owl-tutorial-component hello-world">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3>🦉 Приклад 1: Hello World</h3>
+                </div>
+                <div class="card-body">
+                    <h1>Привіт, Світ!</h1>
+                    <p>Це мій перший OWL компонент в Odoo</p>
+
+                    <div class="alert alert-info mt-3">
+                        <strong>Пояснення:</strong>
+                        <ul>
+                            <li>Компонент наслідується від <code>Component</code></li>
+                            <li>Шаблон визначається в XML файлі</li>
+                            <li>Компонент реєструється в registry для використання в Odoo</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

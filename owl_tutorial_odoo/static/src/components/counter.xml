@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <!-- Приклад 2: Counter (Лічильник) -->
+    <t t-name="owl_tutorial.Counter">
+        <div class="owl-tutorial-component counter">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h3>🦉 Приклад 2: Лічильник (useState)</h3>
+                </div>
+                <div class="card-body text-center">
+                    <!-- Відображення значення лічильника -->
+                    <div class="counter-display mb-4">
+                        <h1 class="display-1">
+                            <t t-esc="state.count"/>
+                        </h1>
+                    </div>
+
+                    <!-- Кнопки управління -->
+                    <div class="counter-buttons mb-3">
+                        <button
+                            class="btn btn-success btn-lg mx-2"
+                            t-on-click="increment">
+                            ➕ Збільшити
+                        </button>
+
+                        <button
+                            class="btn btn-danger btn-lg mx-2"
+                            t-on-click="decrement">
+                            ➖ Зменшити
+                        </button>
+
+                        <button
+                            class="btn btn-secondary btn-lg mx-2"
+                            t-on-click="reset">
+                            ↻ Скинути
+                        </button>
+                    </div>
+
+                    <!-- Вибір кроку -->
+                    <div class="counter-step mt-4">
+                        <label class="form-label">
+                            <strong>Крок:</strong>
+                            <t t-esc="state.step"/>
+                        </label>
+                        <div class="btn-group" role="group">
+                            <button
+                                class="btn btn-outline-primary"
+                                t-att-class="state.step === 1 ? 'btn-primary' : 'btn-outline-primary'"
+                                t-on-click="() => this.changeStep(1)">
+                                1
+                            </button>
+                            <button
+                                class="btn btn-outline-primary"
+                                t-att-class="state.step === 5 ? 'btn-primary' : 'btn-outline-primary'"
+                                t-on-click="() => this.changeStep(5)">
+                                5
+                            </button>
+                            <button
+                                class="btn btn-outline-primary"
+                                t-att-class="state.step === 10 ? 'btn-primary' : 'btn-outline-primary'"
+                                t-on-click="() => this.changeStep(10)">
+                                10
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Пояснення -->
+                    <div class="alert alert-info mt-4 text-left">
+                        <strong>Що тут відбувається:</strong>
+                        <ul class="mb-0">
+                            <li><code>useState()</code> робить об'єкт реактивним</li>
+                            <li><code>t-on-click</code> - обробник події кліку</li>
+                            <li><code>t-esc</code> - виводить значення (escaped)</li>
+                            <li><code>t-att-class</code> - динамічний клас</li>
+                            <li>Зміна <code>state.count</code> автоматично оновлює UI</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>
